@@ -1,24 +1,24 @@
 import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
-import { Pesquisa } from './Pesquisa';
+import { Research } from './Research';
 
 @Table({
   timestamps: true,
-  tableName: 'perguntas',
+  tableName: 'questions',
 })
-export class Perguntas extends Model {
-  @ForeignKey(() => Pesquisa)
+export class Questions extends Model {
+  @ForeignKey(() => Research)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  pesquisaId!: number;
+  researchId!: number;
 
   @Column({
     type: DataType.TEXT,
     allowNull: false,
   })
-  resposta!: string;
+  answer!: string;
 
-  @BelongsTo(() => Pesquisa)
-  pesquisa!: Pesquisa;
+  @BelongsTo(() => Research)
+  research!: Research;
 }

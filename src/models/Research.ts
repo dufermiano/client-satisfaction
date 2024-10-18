@@ -1,24 +1,24 @@
 import { Table, Column, Model, DataType, HasMany, ForeignKey, BelongsTo } from 'sequelize-typescript';
-import { Perguntas } from './Perguntas';
-import { PublicoAlvo } from './PublicoAlvo';
+import { Questions } from './Questions';
+import { Target } from './Target';
 
 @Table({
   timestamps: true,
-  tableName: 'pesquisas',
+  tableName: 'researches',
 })
-export class Pesquisa extends Model {
-  @ForeignKey(() => PublicoAlvo)
+export class Research extends Model {
+  @ForeignKey(() => Target)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  publicoAlvoId!: number;
+  targetId!: number;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  quantidadeEstrelas!: number;
+  stars!: number;
 
   @Column({
     type: DataType.STRING,
@@ -26,9 +26,9 @@ export class Pesquisa extends Model {
   })
   email!: string;
 
-  @HasMany(() => Perguntas)
-  perguntas!: Perguntas[];
+  @HasMany(() => Questions)
+  questions!: Questions[];
 
-  @BelongsTo(() => PublicoAlvo)
-  publicoAlvo!: PublicoAlvo;
+  @BelongsTo(() => Target)
+  target!: Target;
 }

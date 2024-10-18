@@ -1,23 +1,23 @@
 import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
-import { Pesquisa } from './Pesquisa';
+import { Research } from './Research';
 
 @Table({
   timestamps: true,
-  tableName: 'publico_alvo',
+  tableName: 'target',
 })
-export class PublicoAlvo extends Model {
+export class Target extends Model {
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  nome!: string;
+  name!: string;
 
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  genero!: number;
+  genre!: number;
 
-  @HasMany(() => Pesquisa)
-  pesquisas!: Pesquisa[];
+  @HasMany(() => Research)
+  researches!: Research[];
 }
