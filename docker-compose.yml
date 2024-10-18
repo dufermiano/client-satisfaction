@@ -1,0 +1,30 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_NAME: pesquisadb
+    volumes:
+      - .:/usr/src/app
+    command: npm start
+
+  db:
+    image: mysql:8.0
+    environment:
+      DB_HOST: db
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_NAME: pesquisadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
