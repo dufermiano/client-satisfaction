@@ -1,6 +1,5 @@
-// src/repositories/PesquisaRepository.ts
 import { Pesquisa } from '../models/Pesquisa';
-import { Preenchimento } from '../models/Preenchimento';
+import { Perguntas } from '../models/Perguntas';
 
 export class PesquisaRepository {
   async criarPesquisa(data: { publicoAlvo: string; quantidadeEstrelas: number; email: string }) {
@@ -16,7 +15,7 @@ export class PesquisaRepository {
   }
 
   async listarPreenchimentosPorPesquisa(pesquisaId: number) {
-    return await Preenchimento.findAll({
+    return await Perguntas.findAll({
       where: { pesquisaId },
       order: [['quantidadeEstrelas', 'DESC']],
     });
@@ -24,7 +23,7 @@ export class PesquisaRepository {
 
   async obterPesquisaPorId(id: number) {
     return await Pesquisa.findByPk(id, {
-      include: [Preenchimento], // Incluindo os preenchimentos relacionados
+      include: [Perguntas], 
     });
   }
 

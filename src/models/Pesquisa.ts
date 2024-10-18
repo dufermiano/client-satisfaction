@@ -1,17 +1,18 @@
-// src/models/Pesquisa.ts
-import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
-import { Preenchimento } from './Preenchimento';
+import { Table, Column, Model, DataType, HasMany, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Perguntas } from './Perguntas';
+import { PublicoAlvo } from './PublicoAlvo';
 
 @Table({
-  timestamps: true, // Adiciona os campos createdAt e updatedAt
-  tableName: 'pesquisas', // Nome da tabela no banco de dados
+  timestamps: true,
+  tableName: 'pesquisas',
 })
 export class Pesquisa extends Model {
+  @ForeignKey(() => PublicoAlvo)
   @Column({
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: false,
   })
-  publicoAlvo!: string;
+  publicoAlvoId!: number;
 
   @Column({
     type: DataType.INTEGER,
@@ -25,6 +26,9 @@ export class Pesquisa extends Model {
   })
   email!: string;
 
-  @HasMany(() => Preenchimento)
-  preenchimentos!: Preenchimento[];
+  @HasMany(() => Perguntas)
+  perguntas!: Perguntas[];
+
+  @BelongsTo(() => PublicoAlvo)
+  publicoAlvo!: PublicoAlvo;
 }

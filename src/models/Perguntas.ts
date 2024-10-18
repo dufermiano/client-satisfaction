@@ -1,12 +1,11 @@
-// src/models/Preenchimento.ts
 import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { Pesquisa } from './Pesquisa';
 
 @Table({
   timestamps: true,
-  tableName: 'preenchimentos',
+  tableName: 'perguntas',
 })
-export class Preenchimento extends Model {
+export class Perguntas extends Model {
   @ForeignKey(() => Pesquisa)
   @Column({
     type: DataType.INTEGER,
@@ -15,25 +14,8 @@ export class Preenchimento extends Model {
   pesquisaId!: number;
 
   @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
-  publicoAlvo!: string;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  quantidadeEstrelas!: number;
-
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
-  email!: string;
-
-  @Column({
     type: DataType.TEXT,
+    allowNull: false,
   })
   resposta!: string;
 
