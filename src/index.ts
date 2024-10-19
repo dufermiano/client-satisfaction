@@ -18,7 +18,7 @@ app.use('/v1/surveys', surveyRoutes);
 app.use('/v1/questions', questionRoutes);
 app.use('/v1/answers', answerRoutes);
 
-sequelize.sync({ alter: true, force: true }).then(() => {
+sequelize.sync({ alter: true }).then(() => {
   console.log('Database connection established.');
 
   app.listen(port, () => {
