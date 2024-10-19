@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Research } from '../models/Research';
-import { Questions } from '../models/Questions';
-import { Target } from '../models/Target';
+import { Survey } from '../models/Survey';
+import { Question } from '../models/Question';
+import { Answer } from '../models/Answer';
 
 const sequelize = new Sequelize({
   dialect: 'mysql',
@@ -10,7 +10,7 @@ const sequelize = new Sequelize({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  models: [Research, Questions, Target],
+  models: [Survey, Question, Answer],
   pool: {
     max: 5,
     min: 0,
