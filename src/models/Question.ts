@@ -21,4 +21,10 @@ export class Question extends Model {
     allowNull: false,
   })
   question_text!: string;
+
+  @Column({
+    type: DataType.ENUM('text', 'email', 'stars'),
+    allowNull: false,
+  })
+  response_type!: 'text' | 'email' | 'stars';
 }

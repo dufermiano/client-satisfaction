@@ -2,6 +2,7 @@ import { Question } from '../models/Question';
 
 interface DefaultQuestion {
   text: string;
+  response_type: string;
 }
 
 export class QuestionRepository {
@@ -13,6 +14,7 @@ export class QuestionRepository {
     return await Question.bulkCreate(
       questions.map(question => ({
         question_text: question.text,
+        response_type: question.response_type,
         survey_id, 
       }))
     )

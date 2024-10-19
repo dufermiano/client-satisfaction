@@ -5,12 +5,15 @@ import { QuestionRepository } from '../repositories/QuestionRepository';
 const defaultQuestions = [
   {
     text: "Qual eh o seu publico-alvo?",
+    response_type: "text"
   },
   {
     text: "Quantas estrelas voce da para os nossos produtos?",
+    response_type: "stars"
   },
   {
     text: "Qual eh o seu e-mail para contato?",
+    response_type: "email"
   }
 ];
 
