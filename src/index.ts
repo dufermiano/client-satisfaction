@@ -5,6 +5,7 @@ import sequelize from './database';
 import bodyParser from 'body-parser';
 import surveyRoutes from './routes/SurveyRoutes';
 import questionRoutes from './routes/QuestionRoutes';
+import answerRoutes from './routes/AnswerRoutes';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 
 app.use('/v1/surveys', surveyRoutes);
 app.use('/v1/questions', questionRoutes);
+app.use('/v1/answers', answerRoutes);
 
 sequelize.sync({ alter: true, force: true }).then(() => {
   console.log('Database connection established.');
