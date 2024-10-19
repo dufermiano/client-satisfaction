@@ -8,9 +8,9 @@ services:
       DB_USER: app_user
       DB_PASSWORD: my_secret
       DB_NAME: surveysdb
-      PORT: 3000
+      PORT: 3001
     ports:
-      - "3000:3000"
+      - "3001:3001"
     depends_on:
       - db
     command: ["/usr/app/wait-for-it.sh", "db:3306","-t", "60", "--", "node", "dist/index.js"]

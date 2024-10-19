@@ -1,6 +1,5 @@
 import { SurveyRepository } from '../../src/repositories/SurveyRepository';
 
-// Mockando os modelos diretamente
 jest.mock('../../src/models/Survey', () => ({
   Survey: {
     create: jest.fn(),
@@ -15,14 +14,14 @@ jest.mock('../../src/models/Answer', () => ({
   Answer: {},
 }));
 
-const { Survey } = require('../../src/models/Survey'); // Importando o mock
+const { Survey } = require('../../src/models/Survey');
 
 describe('SurveyRepository', () => {
   let surveyRepository: SurveyRepository;
 
   beforeEach(() => {
     surveyRepository = new SurveyRepository();
-    jest.clearAllMocks(); // Limpa os mocks a cada teste
+    jest.clearAllMocks();
   });
 
   it('deve criar uma nova survey', async () => {
