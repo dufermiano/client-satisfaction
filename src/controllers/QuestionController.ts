@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { QuestionRepository } from '../repositories/QuestionRepository';
+import { questionSchema } from '../validators/Question';
 
 export class QuestionController {
   private questionRepository: QuestionRepository;
@@ -10,7 +11,8 @@ export class QuestionController {
 
   async create(req: Request, res: Response): Promise<void> {
     try {
-      const question = await this.questionRepository.create(req.body);
+      const validatedData = questionSchema.parse(req.body);
+      const question = await this.questionRepository.create(validatedData);
       res.status(201).json(question);
     } catch (error) {
       res.status(500).json({ error: 'Failed to create question' });

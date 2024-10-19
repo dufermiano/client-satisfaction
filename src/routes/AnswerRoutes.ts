@@ -5,9 +5,8 @@ const router = Router();
 const answerController = new AnswerController();
 
 router.post('/', (req: Request, res: Response) => answerController.create(req, res));
-router.get('/', (req: Request, res: Response) => answerController.getAll(req, res));
-router.get('/:id', (req: Request, res: Response) => answerController.getById(req, res));
+router.get('/by-target', (req: Request, res: Response) => answerController.listByTarget(req, res));
+router.get('/:survey_id', (req: Request, res: Response) => answerController.findBySurveyId(req, res));
 router.put('/:id', (req: Request, res: Response) => answerController.update(req, res));
-router.delete('/:id', (req: Request, res: Response) => answerController.delete(req, res));
 
 export default router;

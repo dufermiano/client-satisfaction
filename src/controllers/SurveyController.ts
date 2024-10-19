@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { SurveyRepository } from '../repositories/SurveyRepository';
 import { QuestionRepository } from '../repositories/QuestionRepository';
+import { surveySchema } from '../validators/Survey';
 
 const defaultQuestions = [
   {
@@ -9,7 +10,7 @@ const defaultQuestions = [
   },
   {
     text: "Quantas estrelas voce da para os nossos produtos?",
-    response_type: "stars"
+    response_type: "number"
   },
   {
     text: "Qual eh o seu e-mail para contato?",
@@ -28,7 +29,10 @@ export class SurveyController {
 
   async create(req: Request, res: Response): Promise<void> {
     try {
-      const survey = await this.surveyRepository.create(req.body);
+
+      const validatedData = surveySchema.parse(req.body);
+
+      const survey = await this.surveyRepository.create(validatedData);
       await this.questionRepository.bulkCreate(defaultQuestions, survey.id);
 
       const questions = await this.questionRepository.findAllBySurveyId(survey.id);

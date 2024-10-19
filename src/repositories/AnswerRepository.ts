@@ -29,14 +29,14 @@ export class AnswerRepository {
     return null;
   }
 
-  async findByTargetAudience(targetAudience: string, orderByStars: 'ASC' | 'DESC' = 'ASC'): Promise<Answer[]> {
+  async findByTargetAudience(targetAudience: string, orderByStars?: 'ASC' | 'DESC'): Promise<Answer[]> {
     const audienceAnswers = await Answer.findAll({
       include: [
         {
           model: Question,
           as: 'question',
           where: {
-            question_text: { [Op.like]: '%publico-alvo%' },
+            question_text: { [Op.like]: '%público-alvo%' },
             response_type: 'text',
           },
         },
@@ -61,8 +61,7 @@ export class AnswerRepository {
           [Op.in]: audienceAnswers.map(answer => answer.survey_id),
         },
       },
-    
-      order: orderByStars ? [['stars', orderByStars]] : undefined,
+      order: orderByStars ? [['stars', orderByStars]] : [],
     });
 
     return [...audienceAnswers, ...starAnswers];

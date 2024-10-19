@@ -23,8 +23,8 @@ export class Question extends Model {
   question_text!: string;
 
   @Column({
-    type: DataType.ENUM('text', 'email', 'stars'),
+    type: DataType.ENUM('text', 'email', 'number'),
     allowNull: false,
   })
-  response_type!: 'text' | 'email' | 'stars';
+  response_type!: 'text' | 'email' | 'number';
 }
