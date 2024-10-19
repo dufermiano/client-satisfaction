@@ -13,12 +13,6 @@ export class Survey extends Model {
   })
   title!: string;
 
-  @Column({
-    type: DataType.STRING(255),
-    allowNull: false,
-  })
-  target!: string;
-
   @HasMany(() => Question)
   questions!: Question[];
 

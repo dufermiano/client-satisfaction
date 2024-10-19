@@ -22,6 +22,14 @@ export class QuestionRepository {
     return await Question.findAll();
   }
 
+  async findAllBySurveyId(surveyId: number): Promise<Question[]> {
+    return await Question.findAll({
+      where: {
+        survey_id: surveyId
+      }
+    })
+  }
+
   async findById(id: number): Promise<Question | null> {
     return await Question.findByPk(id);
   }

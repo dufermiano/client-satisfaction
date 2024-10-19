@@ -26,11 +26,20 @@ export class SurveyController {
   async create(req: Request, res: Response): Promise<void> {
     try {
       const survey = await this.surveyRepository.create(req.body);
-      const questions = await this.questionRepository.bulkCreate(defaultQuestions, survey.id);
-      
-      console.log('ID', survey.id)
+      await this.questionRepository.bulkCreate(defaultQuestions, survey.id);
 
-      res.status(201).json(survey);
+      const questions = await this.questionRepository.findAllBySurveyId(survey.id);
+
+      const response = {
+        id: survey.id,
+        title: survey.dataValues.title,
+        questions: questions.map(q => ({
+          id: q.id,
+          question_text: q.dataValues.question_text,
+        }))
+      }
+
+      res.status(201).send(response);
     } catch (error) {
       console.log(error);
       res.status(500).json({ error: 'Failed to create survey' });
