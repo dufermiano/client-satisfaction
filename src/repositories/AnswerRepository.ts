@@ -1,12 +1,20 @@
+import { Op } from 'sequelize';
 import { Answer } from '../models/Answer';
+import { Question } from '../models/Question';
 
 export class AnswerRepository {
   async create(data: Partial<Answer>): Promise<Answer> {
     return await Answer.create(data);
   }
 
-  async findAll(): Promise<Answer[]> {
-    return await Answer.findAll();
+  async findBySurveyId(survey_id: number): Promise<Answer[]> {
+    return await Answer.findAll(
+      {
+        where: {
+          survey_id
+        }
+      }
+    );
   }
 
   async findById(id: number): Promise<Answer | null> {
@@ -21,10 +29,42 @@ export class AnswerRepository {
     return null;
   }
 
-  async delete(id: number): Promise<void> {
-    const answer = await this.findById(id);
-    if (answer) {
-      await answer.destroy();
-    }
+  async findByTargetAudience(targetAudience: string, orderByStars: 'ASC' | 'DESC' = 'ASC'): Promise<Answer[]> {
+    const audienceAnswers = await Answer.findAll({
+      include: [
+        {
+          model: Question,
+          as: 'question',
+          where: {
+            question_text: { [Op.like]: '%publico-alvo%' },
+            response_type: 'text',
+          },
+        },
+      ],
+      where: {
+        answer_text: { [Op.like]: `%${targetAudience}%` },
+      },
+    });
+
+    const starAnswers = await Answer.findAll({
+      include: [
+        {
+          model: Question,
+          as: 'question',
+          where: {
+            response_type: 'number',
+          },
+        },
+      ],
+      where: {
+        survey_id: {
+          [Op.in]: audienceAnswers.map(answer => answer.survey_id),
+        },
+      },
+    
+      order: orderByStars ? [['stars', orderByStars]] : undefined,
+    });
+
+    return [...audienceAnswers, ...starAnswers];
   }
 }
