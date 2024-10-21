@@ -6,3 +6,13 @@ export const answerSchema = z.object({
   answer_text: z.string().min(1, 'Question text is required').optional(),
   stars: z.number().optional()
 });
+
+export const getBySurveyIdSchema = z.object({
+  survey_id: z.string(),
+});
+
+export const listByTargetSchema = z.object({
+  target: z.string(),
+  order: z.string().optional(),
+});
+

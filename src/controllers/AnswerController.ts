@@ -1,8 +1,10 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { AnswerRepository } from '../repositories/AnswerRepository';
 import { SurveyRepository } from '../repositories/SurveyRepository';
 import { QuestionRepository } from '../repositories/QuestionRepository';
-import { answerSchema } from '../validators/Answer';
+import { CustomError } from '../middlewares/errorMiddleware';
+import { answerSchema, getBySurveyIdSchema, listByTargetSchema } from '../validators/Answer';
+
 export class AnswerController {
   private answerRepository: AnswerRepository;
   private surveyRepository: SurveyRepository;
@@ -14,15 +16,14 @@ export class AnswerController {
     this.questionRepository = new QuestionRepository();
   }
 
-  async create(req: Request, res: Response): Promise<void> {
+  async create(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const { survey_id, question_id, answer_text, stars } = answerSchema.parse(req.body);
     try {
-      const { survey_id, question_id, answer_text, stars } = answerSchema.parse(req.body);
-
       const surveyExists = await this.surveyRepository.findById(survey_id);
       const questionExists = await this.questionRepository.findById(question_id);
 
       if (!surveyExists || !questionExists) {
-        res.status(404).json({ error: 'Survey or Question not found' });
+        next(new CustomError(404, 'Survey or Question not found'));
         return;
       }
 
@@ -35,51 +36,30 @@ export class AnswerController {
 
       res.status(201).json(answer);
     } catch (error) {
-      console.error('Error creating answer:', error);
-      res.status(500).json({ error: 'Failed to create answer' });
+      throw new CustomError(500, 'Failed to create answer');
     }
   }
 
   async findBySurveyId(req: Request, res: Response): Promise<void> {
-    try {
-      const { survey_id } = req.params;
+    const { survey_id } = getBySurveyIdSchema.parse({ ...req.params })
 
+    try {
       const answers = await this.answerRepository.findBySurveyId(Number(survey_id));
       res.status(200).json(answers);
     } catch (error) {
-      console.error('Error fetching answers:', error);
-      res.status(500).json({ error: 'Failed to fetch answers' });
+      throw new CustomError(500, 'Failed to fetch answers');
     }
   }
 
   async listByTarget(req: Request, res: Response): Promise<void> {
+    const { target, order } = listByTargetSchema.parse({...req.query});
+
     try {
-      const { target, order } = req.query;
       const answers = await this.answerRepository.findByTargetAudience(target as string, order ? (order as 'ASC' | 'DESC') : undefined);
-      
+
       res.status(200).json(answers);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Failed to fetch answers' });
-    }
-  }
-
-  async update(req: Request, res: Response): Promise<void> {
-    try {
-      const { id } = req.params;
-      const updateData = req.body;
-
-      const answer = await this.answerRepository.findById(Number(id));
-      if (!answer) {
-        res.status(404).json({ error: 'Answer not found' });
-        return;
-      }
-
-      await this.answerRepository.update(Number(id), updateData);
-      res.status(200).json({ message: 'Answer updated successfully' });
-    } catch (error) {
-      console.error('Error updating answer:', error);
-      res.status(500).json({ error: 'Failed to update answer' });
+      throw new CustomError(500, 'Failed to fetch answers');
     }
   }
 }
