@@ -7,3 +7,17 @@ export const questionSchema = z.object({
   question_text: z.string().min(1, 'Question text is required'),
   response_type: ResponseTypeEnum,
 });
+
+export const getOrDeleteQuestionByIdSchema = z.object({
+  id: z.string(),
+});
+
+export const getQuestionBySurveyIdSchema = z.object({
+  survey_id: z.string(),
+});
+
+export const updateQuestionSchema = z.object({
+  id: z.string(),
+  question_text: z.string().min(1, 'Question text is required').optional(),
+  response_type: ResponseTypeEnum.optional(),
+})
