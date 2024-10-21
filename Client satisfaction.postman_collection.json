@@ -24,16 +24,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/v1/surveys/",
+							"raw": "http://localhost:3001/v1/surveys",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"v1",
-								"surveys",
-								""
+								"surveys"
 							]
 						}
 					},
@@ -45,12 +44,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/v1/surveys/",
+							"raw": "http://localhost:3001/v1/surveys/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"v1",
 								"surveys",
@@ -94,7 +93,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Pesquisa 1\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Pesquisa 3.0\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -143,7 +142,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "2"
 								}
 							]
 						}
@@ -186,7 +185,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Answers By Id",
+					"name": "Get Answers By Survey Id",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -205,43 +204,7 @@
 							"variable": [
 								{
 									"key": "survey_id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Answer",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n   \"answer_text\": \"teste\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3001/v1/answers/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3001",
-							"path": [
-								"v1",
-								"answers",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "1"
+									"value": ""
 								}
 							]
 						}
@@ -291,7 +254,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"survey_id\": 1,\r\n    \"question_text\": \"O que você mudaria na nossa loja?\"\r\n}",
+							"raw": "{\r\n    \"survey_id\": 1,\r\n    \"question_text\": \"O que você mudaria na nossa loja?\",\r\n    \"response_type\": \"text\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -355,6 +318,34 @@
 							"variable": [
 								{
 									"key": "id",
+									"value": "40"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Questions By Survey Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/v1/questions/survey/:survey_id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"v1",
+								"questions",
+								"survey",
+								":survey_id"
+							],
+							"variable": [
+								{
+									"key": "survey_id",
 									"value": "1"
 								}
 							]
@@ -382,7 +373,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "5"
 								}
 							]
 						}
@@ -396,7 +387,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Nerds\",\r\n    \"genre\": \"Geek\"\r\n}",
+							"raw": "{\r\n    \"response_type\": \"text\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -418,7 +409,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "4"
 								}
 							]
 						}
