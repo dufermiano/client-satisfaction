@@ -45,12 +45,12 @@ export class QuestionController {
 
     try {
       const question = await this.questionRepository.findById(parseInt(id));
-      if (question) {
-        res.status(200).json(question);
-      } else {
+      if (!question) {
         next(new CustomError(404, 'Question not found'));
         return;
       }
+
+      res.status(200).json(question);
     } catch (error) {
       throw new CustomError(500, 'Failed to fetch question');
     }
@@ -60,12 +60,12 @@ export class QuestionController {
     const { id: survey_id, question_text, response_type } = updateQuestionSchema.parse({ ...req.params, ...req.body });
     try {
       const question = await this.questionRepository.update(parseInt(survey_id), { question_text, response_type });
-      if (question) {
-        res.status(200).json(question);
-      } else {
+      if (!question) {
         next(new CustomError(404, 'Question not found'));
         return;
       }
+      
+      res.status(200).json(question);
     } catch (error) {
       throw new CustomError(500, 'Failed to update question');
     }
