@@ -20,7 +20,8 @@ Projeto que visa resolver o [problema](./docs/Problema.md):
 5. [Docker](https://www.docker.com/)
 6. [Docker Compose](https://docs.docker.com)
 7. [MySQL](https://www.mysql.com/)
-8. [Jest](https://jestjs.io/pt-BR/)
+8. [Zod Validator](https://zod.dev/)
+9. [Jest](https://jestjs.io/pt-BR/)
 
 ## Dependências
 
@@ -28,7 +29,7 @@ Tenha o [Docker](https://www.docker.com/) instalado na sua máquina
 
 ## Executar Aplicação
 
-Você deve ter o Docker instalado na sua máquina, pois já vai subir a base de dados junto e rodar o seguinte comando:
+Você deve ter o Docker instalado na sua máquina e rodar o seguinte comando:
 
 ```
 docker-compose up
@@ -42,4 +43,8 @@ docker-compose down
 
 ## Rotas da aplicação
 
-Importe o arquivo collection.json no seu Postman, lá existe um exemplo para cada rota da aplicação
+Importe o arquivo [Client satisfaction.postman_collection.json](./Client%20satisfaction.postman_collection.json) no seu Postman, lá existem exemplos para as rotas da aplicação.
+
+### Instruções de execução
+
+- Crie uma 'Survey' com um título, antes de executar as demais rotas, pois dependem dessa entidade.
