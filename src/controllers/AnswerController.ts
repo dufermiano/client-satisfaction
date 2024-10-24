@@ -17,7 +17,7 @@ export class AnswerController {
   }
 
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const { survey_id, question_id, answer_text, stars } = answerSchema.parse(req.body);
+    const { survey_id, question_id, target_id, answer_text, stars } = answerSchema.parse(req.body);
     try {
       const surveyExists = await this.surveyRepository.findById(survey_id);
       const questionExists = await this.questionRepository.findById(question_id);
@@ -30,6 +30,7 @@ export class AnswerController {
       const answer = await this.answerRepository.create({
         survey_id,
         question_id,
+        target_id,
         answer_text,
         stars,
       });

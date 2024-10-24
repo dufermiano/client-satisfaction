@@ -1,6 +1,6 @@
-import { Op } from 'sequelize';
+import { Sequelize } from 'sequelize';
 import { Answer } from '../models/Answer';
-import { Question } from '../models/Question';
+import { Target } from '../models/Target';
 
 export class AnswerRepository {
   async create(data: Partial<Answer>): Promise<Answer> {
@@ -30,40 +30,20 @@ export class AnswerRepository {
   }
 
   async findByTargetAudience(targetAudience: string, orderByStars?: 'ASC' | 'DESC'): Promise<Answer[]> {
-    const audienceAnswers = await Answer.findAll({
+    return await Answer.findAll({
       include: [
         {
-          model: Question,
-          as: 'question',
-          where: {
-            question_text: { [Op.like]: '%público-alvo%' },
-            response_type: 'text',
-          },
-        },
+          model: Target,
+          as: 'target',
+          where: { name: targetAudience },
+        }
       ],
-      where: {
-        answer_text: { [Op.like]: `%${targetAudience}%` },
-      },
+      logging: console.log,
+      ...(orderByStars && {
+        order: [
+          [Sequelize.literal('stars'), orderByStars]
+        ]
+      })
     });
-
-    const starAnswers = await Answer.findAll({
-      include: [
-        {
-          model: Question,
-          as: 'question',
-          where: {
-            response_type: 'number',
-          },
-        },
-      ],
-      where: {
-        survey_id: {
-          [Op.in]: audienceAnswers.map(answer => answer.survey_id),
-        },
-      },
-      order: orderByStars ? [['stars', orderByStars]] : [],
-    });
-
-    return [...audienceAnswers, ...starAnswers];
   }
 }
