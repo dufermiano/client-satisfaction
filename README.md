@@ -47,4 +47,7 @@ Importe o arquivo [Client satisfaction.postman_collection.json](./Client%20satis
 
 ### Instruções de execução
 
+Antes de iniciar os testes nas outras rotas:
+
 - Crie uma 'Survey' com um título, antes de executar as demais rotas, pois dependem dessa entidade.
+- Crie um 'Target' com um nome.
