@@ -1,6 +1,7 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo, HasOne, AllowNull } from 'sequelize-typescript';
 import { Survey } from './Survey';
 import { Question } from './Question';
+import { Target } from './Target';
 
 @Table({
   timestamps: true,
@@ -27,11 +28,21 @@ export class Answer extends Model {
   @BelongsTo(() => Question)
   question!: Question;
 
+  @ForeignKey(() => Target)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  target_id!: number;
+
+  @BelongsTo(() => Target)
+  target!: Target
+
   @Column({
     type: DataType.TEXT,
     allowNull: true,
   })
-  answer_text!: string;
+  answer_text?: string;
 
   @Column({
     type: DataType.INTEGER,

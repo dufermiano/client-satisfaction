@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import surveyRoutes from './routes/SurveyRoutes';
 import questionRoutes from './routes/QuestionRoutes';
 import answerRoutes from './routes/AnswerRoutes';
+import targetRoutes from './routes/TargetRoutes';
 import { errorMiddleware } from './middlewares/errorMiddleware';
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 app.use('/v1/surveys', surveyRoutes);
 app.use('/v1/questions', questionRoutes);
 app.use('/v1/answers', answerRoutes);
+app.use('/v1/targets', targetRoutes);
 
 app.use(errorMiddleware);
 
