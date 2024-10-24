@@ -152,6 +152,151 @@
 			]
 		},
 		{
+			"name": "Target",
+			"item": [
+				{
+					"name": "Create Target",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"musicos\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/v1/targets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"v1",
+								"targets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Target",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/v1/targets/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"v1",
+								"targets",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Targets By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/v1/targets/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"v1",
+								"targets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Targets",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Nerds\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/v1/targets/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"v1",
+								"targets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Targets",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/v1/targets/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"v1",
+								"targets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Answers",
 			"item": [
 				{
@@ -161,7 +306,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"survey_id\": 1,\r\n    \"question_id\": 2,\r\n    \"stars\": 4\r\n    // \"question_id\": 1,\r\n    // \"answer_text\": \"nerds\"\r\n}",
+							"raw": "{\r\n    \"survey_id\": 1,\r\n    \"question_id\": 1,\r\n    \"target_id\": 2\r\n    // \"stars\": 4\r\n    // \"question_id\": 1,\r\n    //\"answer_text\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -217,7 +362,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/v1/answers/by-target?target=nerds&order=DESC",
+							"raw": "http://localhost:3001/v1/answers/by-target?target=nerds&order=ASC",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -235,7 +380,7 @@
 								},
 								{
 									"key": "order",
-									"value": "DESC"
+									"value": "ASC"
 								}
 							]
 						}
