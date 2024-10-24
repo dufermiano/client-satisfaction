@@ -36,7 +36,7 @@ export class AnswerController {
 
       res.status(201).json(answer);
     } catch (error) {
-      throw new CustomError(500, 'Failed to create answer');
+      throw new CustomError(500, 'Failed to create answer', error as any);
     }
   }
 
@@ -47,7 +47,7 @@ export class AnswerController {
       const answers = await this.answerRepository.findBySurveyId(Number(survey_id));
       res.status(200).json(answers);
     } catch (error) {
-      throw new CustomError(500, 'Failed to fetch answers');
+      throw new CustomError(500, 'Failed to fetch answers', error as any);
     }
   }
 
@@ -59,7 +59,7 @@ export class AnswerController {
 
       res.status(200).json(answers);
     } catch (error) {
-      throw new CustomError(500, 'Failed to fetch answers');
+      throw new CustomError(500, 'Failed to fetch answers', error as any);
     }
   }
 }

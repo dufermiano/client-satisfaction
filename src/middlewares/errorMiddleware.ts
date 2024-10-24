@@ -4,10 +4,14 @@ import { ZodError } from 'zod';
 export class CustomError extends Error {
     public status: number;
 
-    constructor(status: number, message: string) {
+    constructor(status: number, message: string, originalError?: Error) {
         super(message);
         this.status = status;
         this.message = message;
+
+        if (originalError) {
+            console.debug('Debug Log - Original Error:', originalError.message, originalError.stack);
+        }
 
         Object.setPrototypeOf(this, CustomError.prototype);
         if (Error.captureStackTrace) {

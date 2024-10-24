@@ -16,7 +16,7 @@ export class QuestionController {
       const question = await this.questionRepository.create(validatedData);
       res.status(201).json(question);
     } catch (error) {
-      throw new CustomError(500, 'Failed to create question');
+      throw new CustomError(500, 'Failed to create question', error as any);
     }
   }
 
@@ -25,7 +25,7 @@ export class QuestionController {
       const questions = await this.questionRepository.findAll();
       res.status(200).json(questions);
     } catch (error) {
-      throw new CustomError(500, 'Failed to fetch questions');
+      throw new CustomError(500, 'Failed to fetch questions', error as any);
     }
   }
 
@@ -36,7 +36,7 @@ export class QuestionController {
       const questions = await this.questionRepository.findAllBySurveyId(parseInt(survey_id));
       res.status(200).json(questions);
     } catch (error) {
-      throw new CustomError(500, `Failed to fetch questions by survey id ${survey_id}`);
+      throw new CustomError(500, `Failed to fetch questions by survey id ${survey_id}`, error as any);
     }
   }
 
@@ -52,7 +52,7 @@ export class QuestionController {
 
       res.status(200).json(question);
     } catch (error) {
-      throw new CustomError(500, 'Failed to fetch question');
+      throw new CustomError(500, 'Failed to fetch question', error as any);
     }
   }
 
@@ -67,7 +67,7 @@ export class QuestionController {
       
       res.status(200).json(question);
     } catch (error) {
-      throw new CustomError(500, 'Failed to update question');
+      throw new CustomError(500, 'Failed to update question', error as any);
     }
   }
 
@@ -83,7 +83,7 @@ export class QuestionController {
       await this.questionRepository.delete(parseInt(id));
       res.status(204).send();
     } catch (error) {
-      throw new CustomError(500, 'Failed to delete question');
+      throw new CustomError(500, 'Failed to delete question', error as any);
     }
   }
 }

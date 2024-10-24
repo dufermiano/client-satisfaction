@@ -25,7 +25,7 @@ export class TargetController {
             const target = await this.targetRepository.create({ name: lowerCaseName });
             res.status(201).json(target);
         } catch (error) {
-            throw new CustomError(500, 'Failed to create target');
+            throw new CustomError(500, 'Failed to create target', error as any);
         }
     }
 
@@ -34,7 +34,7 @@ export class TargetController {
             const targets = await this.targetRepository.findAll();
             res.status(200).json(targets);
         } catch (error) {
-            throw new CustomError(500, 'Failed to fetch targets');
+            throw new CustomError(500, 'Failed to fetch targets', error as any);
         }
     }
 
@@ -50,7 +50,7 @@ export class TargetController {
 
             res.status(200).json(target);
         } catch (error) {
-            throw new CustomError(500, 'Failed to fetch target');
+            throw new CustomError(500, 'Failed to fetch target', error as any);
         }
     }
 
@@ -65,7 +65,7 @@ export class TargetController {
 
             res.status(200).json(target);
         } catch (error) {
-            throw new CustomError(500, 'Failed to update target');
+            throw new CustomError(500, 'Failed to update target', error as any);
         }
     }
 
@@ -81,7 +81,7 @@ export class TargetController {
             await this.targetRepository.delete(parseInt(id));
             res.status(204).send();
         } catch (error) {
-            throw new CustomError(500, 'Failed to delete Target');
+            throw new CustomError(500, 'Failed to delete Target', error as any);
         }
     }
 }

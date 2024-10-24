@@ -48,7 +48,7 @@ export class SurveyController {
 
       res.status(201).send(response);
     } catch (error) {
-      throw new CustomError(500, 'Failed to create survey');
+      throw new CustomError(500, 'Failed to create survey', error as any);
     }
   }
 
@@ -57,7 +57,7 @@ export class SurveyController {
       const surveys = await this.surveyRepository.findAll();
       res.status(200).json(surveys);
     } catch (error) {
-      throw new CustomError(500, 'Failed to fetch surveys');
+      throw new CustomError(500, 'Failed to fetch surveys', error as any);
     }
   }
 
@@ -72,7 +72,7 @@ export class SurveyController {
       
       res.status(200).json(survey);
     } catch (error) {
-      throw new CustomError(500, 'Failed to fetch survey');
+      throw new CustomError(500, 'Failed to fetch survey', error as any);
     }
   }
 
@@ -88,7 +88,7 @@ export class SurveyController {
         return;
       }
     } catch (error) {
-      throw new CustomError(500, 'Failed to update survey');
+      throw new CustomError(500, 'Failed to update survey', error as any);
     }
   }
 
@@ -104,7 +104,7 @@ export class SurveyController {
       await this.surveyRepository.delete(parseInt(id));
       res.status(204).send();
     } catch (error) {
-      throw new CustomError(500, 'Failed to delete survey');
+      throw new CustomError(500, 'Failed to delete survey', error as any);
     }
   }
 }
